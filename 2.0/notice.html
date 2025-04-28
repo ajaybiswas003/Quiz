@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notice Board</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-900 text-white p-8">
+  <div id="notice-board" class="bg-gray-900 text-white p-8 rounded-lg shadow-lg max-w-3xl mx-auto">
+    <h2 class="text-4xl font-extrabold mb-6 flex items-center gap-2">
+      📢 Notice Board
+    </h2>
+    <ul class="list-none space-y-6">
+
+      <!-- Notice with NEW sticker -->
+      <li class="relative p-4 border border-gray-700 rounded-lg">
+        <div class="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full">NEW</div>
+        <span class="font-semibold">Banking Exam Preparation:</span> 20 March 2025
+      </li>
+
+      <!-- Notice with NEW sticker -->
+      <li class="relative p-4 border border-gray-700 rounded-lg">
+        <div class="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full">NEW</div>
+        <span class="font-semibold">Exam Schedule:</span> 20 March 2025
+      </li>
+
+
+      <!-- Notice without sticker -->
+      <li class="relative p-4 border border-gray-700 rounded-lg">
+        <span class="font-semibold">New Course Enrollment:</span> Starting from 1 April 2025
+      </li>
+
+      <!-- Notice without sticker -->
+      <li class="relative p-4 border border-gray-700 rounded-lg">
+        <span class="font-semibold">New Course Enrollment:</span> Starting from 1 April 2025
+      </li>
+
+    </ul>
+  </div>
+</body>
+
+
+</html>

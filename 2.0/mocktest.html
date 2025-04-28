@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mock Test - Physics</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body
+  class="bg-gradient-to-r from-blue-500 via-indigo-600 to-purple-700 text-white min-h-screen flex flex-col items-center justify-center p-8">
+
+  <div id="quiz-container" class="w-full max-w-2xl bg-white bg-opacity-10 p-8 rounded-2xl shadow-lg">
+    <h1 class="text-4xl font-extrabold mb-6 text-center">Mock Test - Physics</h1>
+
+    <div id="quiz" class="text-lg mb-6"></div>
+
+    <div class="flex justify-between mt-4">
+      <button onclick="prevQuestion()"
+        class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-6 rounded-full">Previous</button>
+      <button onclick="nextQuestion()"
+        class="bg-green-400 hover:bg-green-500 text-black font-bold py-2 px-6 rounded-full">Next</button>
+    </div>
+
+    <div id="submit-btn" class="hidden mt-6 text-center">
+      <button onclick="submitQuiz()"
+        class="bg-blue-500 hover:bg-blue-700 py-3 px-8 rounded-2xl text-xl font-bold">Submit Test</button>
+    </div>
+
+    <div id="result" class="hidden mt-8 text-center">
+      <h2 class="text-2xl font-bold mb-4">Results</h2>
+      <p id="score" class="text-xl"></p>
+    </div>
+  </div>
+
+  <script>
+    const quizData = [
+      { question: "What is the SI unit of force?", options: ["Newton", "Meter", "Kilogram"], correct: "Newton" },
+      { question: "Who is known as the father of modern physics?", options: ["Isaac Newton", "Albert Einstein", "Galileo Galilei"], correct: "Albert Einstein" },
+      { question: "What is the speed of light in a vacuum?", options: ["3 × 10^8 m/s", "2 × 10^8 m/s", "5 × 10^8 m/s"], correct: "3 × 10^8 m/s" },
+      { question: "Which of the following is a vector quantity?", options: ["Speed", "Distance", "Velocity"], correct: "Velocity" },
+      { question: "What does Ohm's Law state?", options: ["V = IR", "P = IV", "E = mc^2"], correct: "V = IR" },
+      { question: "The unit of electrical resistance is:", options: ["Ampere", "Volt", "Ohm"], correct: "Ohm" },
+      { question: "The law of inertia was proposed by:", options: ["Isaac Newton", "Albert Einstein", "Galileo Galilei"], correct: "Isaac Newton" },
+      { question: "The energy possessed by a body due to its motion is called:", options: ["Potential Energy", "Kinetic Energy", "Mechanical Energy"], correct: "Kinetic Energy" },
+      { question: "The bending of light from one medium to another is called:", options: ["Reflection", "Refraction", "Diffraction"], correct: "Refraction" },
+      { question: "The energy stored in a stretched spring is called:", options: ["Elastic Potential Energy", "Kinetic Energy", "Gravitational Potential Energy"], correct: "Elastic Potential Energy" }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let selectedAnswers = {};
+
+    function loadQuiz() {
+      const quiz = document.getElementById("quiz");
+      const questionObj = quizData[currentQuestion];
+
+      quiz.innerHTML = `
+        <h2 class="mb-4">${currentQuestion + 1}. ${questionObj.question}</h2>
+        ${questionObj.options.map(option => `
+          <div class="mb-2">
+            <label class="inline-flex items-center">
+              <input type="radio" name="answer" value="${option}" class="mr-2" ${selectedAnswers[currentQuestion] === option ? "checked" : ""}>
+              ${option}
+            </label>
+          </div>
+        `).join('')}
+      `;
+
+      // Show Submit Button at Last Question
+      if (currentQuestion === quizData.length - 1) {
+        document.getElementById('submit-btn').classList.remove('hidden');
+      } else {
+        document.getElementById('submit-btn').classList.add('hidden');
+      }
+    }
+
+    function nextQuestion() {
+      saveAnswer();
+      if (currentQuestion < quizData.length - 1) {
+        currentQuestion++;
+        loadQuiz();
+      }
+    }
+
+    function prevQuestion() {
+      saveAnswer();
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        loadQuiz();
+      }
+    }
+
+    function saveAnswer() {
+      const options = document.getElementsByName('answer');
+      options.forEach(option => {
+        if (option.checked) {
+          selectedAnswers[currentQuestion] = option.value;
+        }
+      });
+    }
+
+    function submitQuiz() {
+      saveAnswer();
+      score = 0;
+      quizData.forEach((q, index) => {
+        if (selectedAnswers[index] === q.correct) {
+          score++;
+        }
+      });
+
+      document.getElementById('quiz').classList.add('hidden');
+      document.querySelector('.flex').classList.add('hidden');
+      document.getElementById('submit-btn').classList.add('hidden');
+
+      document.getElementById('result').classList.remove('hidden');
+      document.getElementById('score').textContent = `You scored ${score} out of ${quizData.length}! 🎯`;
+    }
+
+    loadQuiz();
+
+    function submitQuiz() {
+      saveAnswer();
+      score = 0;
+      quizData.forEach((q, index) => {
+        if (selectedAnswers[index] === q.correct) {
+          score++;
+        }
+      });
+
+      const total = quizData.length;
+      const percentage = ((score / total) * 100).toFixed(2);
+
+      // Save data to localStorage
+      localStorage.setItem('score', score);
+      localStorage.setItem('total', total);
+      localStorage.setItem('percentage', percentage);
+
+      // Redirect to result page
+      window.location.href = 'result.html';
+    }
+
+  </script>
+
+</body>
+
+</html>
