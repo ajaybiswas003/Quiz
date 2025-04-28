@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Dual OTP Registration</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.container {
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  width: 350px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+input, button {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+button {
+  background: #007bff;
+  color: white;
+  border: none;
+  font-weight: bold;
+}
+button:hover {
+  background: #0056b3;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Sign up</h2>
+    <form id="registerForm">
+      <input type="text" id="name" placeholder="Full Name" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <input type="email" id="email" placeholder="Gmail ID" required>
+      <!-- <div class="otpverify">
+        <input type="text" id="otp_inp" placeholder="Enter the otp sent to your Email....">
+      </div>
+      <button class="btn" id="otp-btn">Verify</button>
+      <div>
+        <button class="btn">Send OTP</button>
+      </div> -->
+      <!-- <input type="text" id="mobile" placeholder="Mobile (+91XXXXXXXXXX)" required> -->
+      
+      <div id="recaptcha-container"></div>
+      <!-- <button type="button" onclick="sendMobileOTP()">Send Mobile OTP</button> -->
+      <button type="button" onclick="sendEmailOTP()">Submit</button>
+    </form>
+
+    <div id="otpSection" style="display:none;">
+      <input type="text" id="mobileOtp" placeholder="Enter Mobile OTP">
+      <input type="text" id="emailOtp" placeholder="Enter Email OTP">
+      <button onclick="verifyBothOTPs()">Verify Both OTPs</button>
+    </div>
+
+    <p id="message"></p>
+  </div>
+</body>
+</html>
